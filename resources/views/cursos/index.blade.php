@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    <h4 class="mb-5">
+    Por ahora, la página inicial es este index de cursos. <br>
+    <a href="{{ route('pendientes') }}">Más tareas pendientes por hacer</a>
+    </h4>
+
     <h2>Listado de Cursos</h2>
     @if($cursos->isEmpty())
         <p class="text-center">No hay cursos disponibles.</p>

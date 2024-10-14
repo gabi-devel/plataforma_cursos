@@ -15,7 +15,7 @@ class CursoController extends Controller
 
     public function create()
     {
-        return view('form_curso');
+        return view('cursos.create');
     }
 
     public function store(Request $request)

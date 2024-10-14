@@ -20,3 +20,5 @@ Route::get('/curso', [CursoController::class, 'create'])->name('cursos.create');
 Route::get('/unidad', [UnidadController::class, 'create'])->name('unidades.create');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/pendientes', function () {return view('pendientes');})->name('pendientes');
