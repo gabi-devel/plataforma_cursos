@@ -1,21 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row">
         <div class="col-md-12">
+            <h2 class="col-md-6 mx-auto mb-5 text-center">Formulario para Cursos</h2>
             <form action="{{ route('cursos.store') }}" method="POST" class="row g-3">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <label for="nombre" class="form-label">Materia</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control shadow-none" 
-                        value="{{ old('nombre') }}">
-                        @error('nombre')
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" name="titulo" id="titulo" class="form-control shadow-none" 
+                        value="{{ old('titulo') }}">
+                        {{-- @error('titulo')
                             <small class="text-danger" role="alert">
                                 {{ $message }}
                             </small>
-                        @enderror
+                        @enderror --}}
                     </div>
                 </div>
                 <div class="row">
@@ -23,48 +24,13 @@
                         <label for="descripcion" class="form-label">Descripcion</label>
                         <input type="text" name="descripcion" id="descripcion" class="form-control shadow-none" 
                         value="{{ old('descripcion') }}">
-                        @error('descripcion')
-                            <small class="text-danger" role="alert">
-                                {{ $message }}
-                            </small>
-                        @enderror
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <label for="dia" class="form-label">Día</label>
-                        {{-- <select id="sel_dia" class="form-select shadow-none" name="name_dia" 
-                        value="{{ old('name_dia') }}">
-                            <option value="" selected disabled>Seleccionar...</option>
-                            @foreach ($varDias as $tal_dia)
-                                <option value="{{ $tal_dia->id_dia }}"
-                                    {{ old('name_dia') == $tal_dia->id_dia ? 'selected' : '' }}
-                                >
-                                    {{ $tal_dia->id_dia }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('name_dia')
-                            <small class="text-danger" role="alert">
-                                Seleccione un día
-                            </small>
-                        @enderror --}}
-                        {{-- <select id="dia" class="form-select shadow-none" name="id_dia" 
-                        value="{{ old('id_dia') }}">
-                            <option value="" selected disabled>Seleccionar...</option>
-                            @foreach ($dias as $dia)
-                                <option value="{{ $dia->id_dia }}"
-                                    {{ old('id_dia') == $dia->id_dia ? 'selected' : '' }}
-                                >
-                                {{ $dia->dia }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('id_dia')
-                            <small class="text-danger" role="alert">
-                                Seleccione un día
-                            </small>
-                        @enderror --}}
+                        <label for="imagen" class="form-label">Imagen</label>
+                        <input type="text" name="imagen" id="imagen" class="form-control shadow-none" 
+                        value="hxh.png">{{-- value="{{ old('imagen') }}" --}}
                     </div>
                 </div>
                 <div class="col-md-12 d-flex justify-content-center">

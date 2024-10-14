@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Curso extends Model
+class Unidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'cursos';
+    protected $table = 'unidades';
     protected $primaryKey = 'id';
     protected $fillable = [
+        'curso_id',
         'titulo',
-        'descripcion',
-        'imagen',
-        'habilitado'
+        'contenido',
+        'video_url'
     ];
-    /* public $timestamps = false; */
 }

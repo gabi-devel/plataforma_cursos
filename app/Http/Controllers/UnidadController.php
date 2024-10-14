@@ -2,39 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unidad;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 
-class CursoController extends Controller
+class UnidadController extends Controller
 {
     public function index()
     {
-        $cursos = Curso::all();
-        return view('cursos.index', compact('cursos'));
+        
     }
 
     public function create()
     {
-        return view('form_curso');
+        $cursos = Curso::all();
+
+        return view('form_unidad', compact('cursos'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'titulo' => 'nullable',
-            'descripcion' => 'nullable',
-            'imagen' => 'nullable'
+            'curso_id' => 'nullable',
+            'titulo' => 'nullable|numeric',
+            'contenido' => 'nullable',
+            'video' => 'nullable'
         ]);
 
-        // Crear y guardar el curso
-        Curso::create([
+        Unidad::create([
             'titulo' => $request->input('titulo'),
-            'descripcion' => $request->input('descripcion'),
-            'imagen' => $request->input('imagen'),
-            'habilitado' => $request->input('habilitado', 1) // Habilitado
+            'contenido' => $request->input('descripcion'),
+            'video' => $request->input('imagen')
         ]);
 
-        return redirect()->route('cursos.index')->with('success', 'Curso registrado correctamente.');
+        return redirect()->route('unidades.index')->with('success', 'Unidad registrada correctamente.');
     }
 
     /**
@@ -50,7 +51,7 @@ class CursoController extends Controller
      */
     public function edit(Curso $curso)
     {
-        // Acá se debería editar para deshabilitar o habilitar el curso
+        //
     }
 
     /**
@@ -58,7 +59,7 @@ class CursoController extends Controller
      */
     public function update(Request $request, Curso $curso)
     {
-        // Acá se debería actualizar para deshabilitar o habilitar el curso
+        //
     }
 
     /**
