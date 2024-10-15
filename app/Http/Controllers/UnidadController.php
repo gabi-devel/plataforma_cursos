@@ -10,7 +10,8 @@ class UnidadController extends Controller
 {
     public function index()
     {
-        
+        $unidades = Unidad::all();
+        return view('unidades.index', compact('unidad'));
     }
 
     public function create()
@@ -23,19 +24,20 @@ class UnidadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'curso_id' => 'nullable',
-            'titulo' => 'nullable|numeric',
+            'curso_id' => 'required|exists:cursos,id',
+            'titulo' => 'nullable|string',
             'contenido' => 'nullable',
             'video' => 'nullable'
         ]);
 
         Unidad::create([
+            'curso_id' => $request->curso_id,
             'titulo' => $request->input('titulo'),
-            'contenido' => $request->input('descripcion'),
-            'video' => $request->input('imagen')
+            'contenido' => $request->input('contenido'),
+            'video' => $request->input('video')
         ]);
 
-        return redirect()->route('unidades.index')->with('success', 'Unidad registrada correctamente.');
+        return redirect()->route('unidades.create')->with('success', 'Unidad registrada correctamente.');
     }
 
     /**

@@ -19,7 +19,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ $curso->titulo }}</h5>
                   <p class="card-text">{{ $curso->descripcion }}</p>
-                  <a href="#" class="btn btn-primary">Go go go</a>
+                  <a href="{{ route('unidades.index') }}" class="btn btn-primary">Ingresar</a>
                 </div>
             </div>
         </div>

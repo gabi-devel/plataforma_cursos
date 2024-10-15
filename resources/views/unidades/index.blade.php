@@ -17,9 +17,9 @@
   <body> 
     <div class="page">
       <!-- Page Header-->
-      <header class="section page-header">
+      {{--<header class="section page-header">
         <!-- RD Navbar-->
-        {{-- <div class="rd-navbar-wrap" style="height: unset;">
+         <div class="rd-navbar-wrap" style="height: unset;">
           <nav class="rd-navbar rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
             <div class="rd-navbar-main-outer">
               <div class="rd-navbar-main">
@@ -263,11 +263,11 @@
               </div>
             </div>
           </nav>
-        </div> --}}
-      </header>
+        </div> 
+      </header>--}}
 
       <!-- Breadcrumbs -->
-      <section class="breadcrumbs-custom-inset">
+      {{-- <section class="breadcrumbs-custom-inset">
         <div class="breadcrumbs-custom context-dark bg-overlay-40">
           <div class="container">
             <h3 class="breadcrumbs-custom-title">Business Analytics for IT Leaders</h3>
@@ -279,13 +279,13 @@
           </div>
           <div class="box-position" style="background-image: url(images/bg-about.jpg);"></div>
         </div>
-      </section>
+      </section> --}}
 
       <!-- Single Course-->
       <section class="section section-sm section-first bg-default">
         <div class="container">
           <div class="row row-50">
-            <div class="col-lg-6">
+            {{-- <div class="col-lg-6">
               <div class="slick-product">
                 <!-- Slick Carousel-->
                 <div class="slick-slider carousel-parent" data-swipe="true" data-items="1" data-child="#child-carousel" data-for="#child-carousel">
@@ -346,19 +346,23 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
             <!-- Bootstrap tabs-->
             <div class="col-12">
               <div class="tabs-custom tabs-horizontal tabs-corporate" id="tabs-5">
                 <!-- Nav tabs-->
                 <ul class="nav nav-tabs">
-                  <li class="nav-item" role="presentation"><a class="nav-link active" href="#tabs-5-1" data-toggle="tab">Testimonials (1)</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-5-2" data-toggle="tab">Introduction</a></li>
+                  <li class="nav-item" role="presentation"><a class="nav-link active" href="#tabs-5-2" data-toggle="tab">Introduction</a></li>
+                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-5-1" data-toggle="tab">Testimonials</a></li>
                   <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-5-3" data-toggle="tab">What Will I Learn?</a></li>
                 </ul>
                 <!-- Tab panes-->
                 <div class="tab-content">
-                  <div class="tab-pane fade show active" id="tabs-5-1">
+                  <div class="tab-pane fade show active" id="tabs-5-2">
+                    <h3></h3>
+                    <p>Here you will find more useful information about the chosen course. It’s always good to have the choice we can offer. We try to cater to the needs of each and every whimsical buyer. This course is qualitative and affordable at the same time. Take advantage of its benefits and you'll see that this is exactly the product you need. Besides you can save your money on account of the lowest prices.</p>
+                  </div>
+                  <div class="tab-pane fade" id="tabs-5-1">
                     <div class="box-comment">
                       <div class="unit unit-spacing-md flex-column flex-md-row align-items-lg-center">
                         <div class="unit-left"><a class="box-comment-figure" href="#"><img src="images/user-1-119x119.jpg" alt="" width="119" height="119"/></a></div>
@@ -402,9 +406,6 @@
                       </div>
                       <button class="button button-secondary button-pipaluk" type="submit">Submit</button>
                     </form>
-                  </div>
-                  <div class="tab-pane fade" id="tabs-5-2">
-                    <p>Here you will find more useful information about the chosen course. It’s always good to have the choice we can offer. We try to cater to the needs of each and every whimsical buyer. This course is qualitative and affordable at the same time. Take advantage of its benefits and you'll see that this is exactly the product you need. Besides you can save your money on account of the lowest prices.</p>
                   </div>
                   <div class="tab-pane fade" id="tabs-5-3">
                     <p>Here you can read some details about a nifty little lifecycle of your order's journey from the time you place your order to your new treasures arriving at your doorstep. At first you choose the product you like. Then you put into your shopping cart and pass the checkout process in a few clicks. Our store offers several payment and delivery methods, so you have an opportunity to choose which one is the most convenient for you.</p>

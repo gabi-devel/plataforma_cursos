@@ -15,6 +15,6 @@ class Unidad extends Model
         'curso_id',
         'titulo',
         'contenido',
-        'video_url'
+        'video'
     ];
 }

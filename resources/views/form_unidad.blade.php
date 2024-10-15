@@ -41,13 +41,12 @@
                         value="{{ old('contenido') }}">
                     </div>
                 </div>
-                {{-- <div class="row">
+                <div class="row">
                     <div class="col-md-6 mx-auto">
                         <label for="video" class="form-label">Video</label>
-                        <input type="text" name="video" id="video" class="form-control shadow-none" 
-                        value="{{ old('video') }}">
+                        <input type="text" name="video" id="video" class="form-control shadow-none">
                     </div>
-                </div> --}}
+                </div>
                 <div class="col-md-12 d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
