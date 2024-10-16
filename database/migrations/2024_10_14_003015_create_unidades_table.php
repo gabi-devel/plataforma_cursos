@@ -11,9 +11,11 @@ return new class extends Migration
         Schema::create('unidades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
+            $table->integer('num_unidad');
             $table->string('titulo');
             $table->string('contenido');
             $table->string('video');
+            $table->boolean('habilitado');
             $table->timestamps();
         });
     }

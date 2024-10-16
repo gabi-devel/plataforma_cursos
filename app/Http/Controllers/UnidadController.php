@@ -11,14 +11,14 @@ class UnidadController extends Controller
     public function index()
     {
         $unidades = Unidad::all();
-        return view('unidades.index', compact('unidad'));
+        return view('unidades.index', compact('unidades'));
     }
 
     public function create()
     {
         $cursos = Curso::all();
 
-        return view('form_unidad', compact('cursos'));
+        return view('unidades.create', compact('cursos'));
     }
 
     public function store(Request $request)
@@ -30,11 +30,13 @@ class UnidadController extends Controller
             'video' => 'nullable'
         ]);
 
+        $ultimaUnidad = Unidad::where('curso_id', $request->curso_id)->max('num_unidad');
         Unidad::create([
             'curso_id' => $request->curso_id,
             'titulo' => $request->input('titulo'),
             'contenido' => $request->input('contenido'),
-            'video' => $request->input('video')
+            'video' => $request->input('video'),
+            'habilitado' => $request->input('habilitado', 1) // Habilitado
         ]);
 
         return redirect()->route('unidades.create')->with('success', 'Unidad registrada correctamente.');

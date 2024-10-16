@@ -26,5 +26,9 @@
     @endforeach
     </div>
     @endif
+
+    <h5>Formularios: 
+    <a href="{{ route('cursos.create')}}">Crear Curso</a> -
+    <a href="{{ route('unidades.create')}}">Crear Unidad</a></h5>
 </div>
 @endsection
