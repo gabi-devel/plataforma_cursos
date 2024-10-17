@@ -8,6 +8,7 @@
 - npm run dev
 - php artisan serve (Cuando de error, presionar a la derecha el botón de "Generar key")
 - En .env poner el nombre de la base de datos "cursos"
+- php artisan migrate (Desea crear la base de datos? yes)
 
 
 
