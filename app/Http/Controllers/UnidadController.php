@@ -17,27 +17,42 @@ class UnidadController extends Controller
     public function create()
     {
         $cursos = Curso::all();
+        $unidades = Unidad::all();
 
-        return view('unidades.create', compact('cursos'));
+        return view('unidades.create', compact('cursos', 'unidades'));
+    }
+    public function obtenerUnidades($cursoId) {
+        $unidades = Unidad::where('curso_id', $cursoId)->orderBy('orden')->get();
+        return response()->json($unidades);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'curso_id' => 'required|exists:cursos,id',
+            'orden' => 'required',
             'titulo' => 'nullable|string',
             'contenido' => 'nullable',
             'video' => 'nullable'
         ]);
 
-        $ultimaUnidad = Unidad::where('curso_id', $request->curso_id)->max('num_unidad');
-        Unidad::create([
-            'curso_id' => $request->curso_id,
-            'titulo' => $request->input('titulo'),
-            'contenido' => $request->input('contenido'),
-            'video' => $request->input('video'),
-            'habilitado' => $request->input('habilitado', 1) // Habilitado
-        ]);
+        $cursoId = $request->input('curso_id');
+        $posicionDeseada = $request->input('orden');
+
+
+        // Incrementar el orden de las unidades siguientes
+        Unidad::where('curso_id', $cursoId)
+                ->where('orden', '>=', $posicionDeseada)
+                ->increment('orden');
+
+        $unidad = new Unidad();
+        $unidad->curso_id = $cursoId;
+        $unidad->orden = $posicionDeseada;
+        $unidad->titulo = $request->input('titulo');
+        $unidad->contenido = $request->input('contenido');
+        $unidad->video = $request->input('video');
+        $unidad->habilitado = $request->input('habilitado', 1); // Habilitado 
+        $unidad->save();
 
         return redirect()->route('unidades.create')->with('success', 'Unidad registrada correctamente.');
     }

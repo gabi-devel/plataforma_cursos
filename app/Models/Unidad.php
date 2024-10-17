@@ -13,6 +13,7 @@ class Unidad extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'curso_id',
+        'orden',
         'titulo',
         'contenido',
         'video'

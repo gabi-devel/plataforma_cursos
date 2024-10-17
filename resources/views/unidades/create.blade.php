@@ -22,6 +22,17 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 mx-auto">
+                        <label for="orden">Posición de la unidad:</label>
+                        <select name="orden" id="orden">
+                            @foreach($unidades as $unidad)
+                                <option value="{{ $unidad->orden - 1 }}">Antes de Unidad {{ $unidad->orden }} - O sea: {{ $unidad->orden - 1 }}</option>
+                            @endforeach
+                            <option value="{{ $unidades->count() + 1 }}">Al final: {{ $unidad->orden + 1 }}</option>
+                        </select>
+                    </div>
+                </div>        
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
                         <label for="titulo" class="form-label">Título</label>
                         <input type="text" name="titulo" id="titulo" class="form-control shadow-none" 
                         value="{{ old('titulo') }}">
@@ -55,3 +66,39 @@
     </div>
 </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Detectar cuando cambia la selección del curso
+    $('#curso_id').on('change', function() {
+        var cursoId = $(this).val();
+
+        // Si hay un curso seleccionado
+        if (cursoId) {
+            $.ajax({
+                url: '/cursos/' + cursoId + '/unidades',
+                type: 'GET',
+                success: function(unidades) {
+                    var $ordenSelect = $('#orden');
+                    $ordenSelect.empty(); // Limpiar opciones anteriores
+
+                    // Recorrer las unidades y agregarlas al select
+                    unidades.forEach(function(unidad, index) {
+                        $ordenSelect.append('<option value="' + (unidad.orden - 1) + '">Antes de Unidad ' + (unidad.orden) + '- O sea: ' + (unidad.orden - 1) + '</option>');
+                    });
+
+                    // Opción para agregar al final
+                    $ordenSelect.append('<option value="' + (unidades.length + 1) + '">Al final - O sea: ' + (unidades.length + 1) + '</option>');
+                },
+                error: function() {
+                    alert('Error al obtener las unidades.');
+                }
+            });
+        } else {
+            // Si no hay curso seleccionado, limpiar el select de unidades
+            $('#orden').empty();
+        }
+    });
+});
+</script>
