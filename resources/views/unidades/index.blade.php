@@ -1,20 +1,9 @@
+<link rel="stylesheet" href="../css/bootstrap.css"> 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-<!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
-  <head>
-    <title>Single Course</title>
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <!-- Stylesheets-->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Poppins:400,500%7CRaleway:300,o400,400i,500,600,700">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="style.css" id="main-styles-link">
-  </head>
-  <body> 
+@extends('layouts.app')
+
+@section('content')
     <div class="page row" style="margin: 0">
       <!-- Page Header-->
       {{--<header class="section page-header">
@@ -281,22 +270,32 @@
         </div>
       </section> --}}
 
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse bg-secondary">
         <div class="position-sticky pt-3 sidebar-sticky">
           <ul class="nav flex-column">
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home align-text-bottom" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Unidad 1
               </a>
-            </li>
-            <li class="nav-item">
+            </li> --}}
+            @foreach ($unidades as $unidad)
+            <li class="nav-item" style="
+                        border-bottom: 1px solid #83a7f3;">
               <a class="nav-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file align-text-bottom" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                Unidad 2
+                 Unidad {{$unidad->orden }}
               </a>
             </li>
-            <li class="nav-item">
+            @endforeach
+            <li class="nav-item" style="
+                        border-bottom: 1px solid #83a7f3;">
+              <a class="nav-link" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file align-text-bottom" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                 Examen
+              </a>
+            </li>
+            {{-- <li class="nav-item">
               <a class="nav-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart align-text-bottom" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                 Products
@@ -319,7 +318,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers align-text-bottom" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                 Integrations
               </a>
-            </li>
+            </li> --}}
           </ul>
   
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
@@ -335,288 +334,30 @@
                 Current month
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text align-text-bottom" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Last quarter
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text align-text-bottom" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Social engagement
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text align-text-bottom" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Year-end sale
-              </a>
-            </li>
           </ul>
         </div>
       </nav>
-      <!-- Single Course-->
-      <section class="section section-sm section-first bg-default col-md-9 col-lg-10 ">
+      
+      <section class="section section-sm section-first bg-light col-md-9 col-lg-10 ">
         <div class="container">
           <div class="row row-50">
-            {{-- <div class="col-lg-6">
-              <div class="slick-product">
-                <!-- Slick Carousel-->
-                <div class="slick-slider carousel-parent" data-swipe="true" data-items="1" data-child="#child-carousel" data-for="#child-carousel">
-                  <div class="item">
-                    <div class="slick-product-figure"><img src="images/product-10-530x480.jpg" alt="" width="530" height="480"/>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="slick-product-figure"><img src="images/product-11-530x480.jpg" alt="" width="530" height="480"/>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="slick-product-figure"><img src="images/product-12-530x480.jpg" alt="" width="530" height="480"/>
-                    </div>
-                  </div>
-                </div>
-                <div class="slick-slider child-carousel" id="child-carousel" data-for=".carousel-parent" data-arrows="true" data-items="3" data-sm-items="3" data-md-items="3" data-lg-items="3" data-xl-items="3" data-slide-to-scroll="1" data-md-vertical="true">
-                  <div class="item">
-                    <div class="slick-product-figure"><img src="images/product-mini-4-169x152.jpg" alt="" width="169" height="152"/>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="slick-product-figure"><img src="images/product-mini-5-169x152.jpg" alt="" width="169" height="152"/>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="slick-product-figure"><img src="images/product-mini-6-169x152.jpg" alt="" width="169" height="152"/>
-                    </div>
-                  </div>
-                </div>
+            <div class="col-12">
+              <div class="mt-3">
+                <h1>Titulo</h1>
+                <h2>Subtítulo</h2> 
+                <p>Contenido
+                  <br>Texto...............
+                </p>
+                <h3>Video o Link del video de Youtube</h3>
+                <h4 class="text-end">Clase Siguiente (Link)</h4>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="single-product">
-                <h3>Business Analytics</h3>
-                <div class="group-md group-middle">
-                  <div class="single-product-price">$550.00</div>
-                  <div class="box-rating"><span class="icon fa fa-star"></span><span class="icon fa fa-star"></span><span class="icon fa fa-star"></span><span class="icon fa fa-star"></span><span class="icon fa fa-star-half-o"></span></div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                <div class="divider divider-30"></div>
-                <ul class="list list-description d-inline-block d-md-block">
-                  <li><span>Teacher:</span><span>Kate Williams</span></li>
-                  <li><span>Duration:</span><span>6 weeks</span></li>
-                  <li><span>Language:</span><span>English</span></li>
-                  <li><span>Required Level:</span><span>Intermediate</span></li>
-                </ul>
-                <div><a class="button button-secondary button-pipaluk" href="#">order this course</a></div>
-                <div class="divider divider-40"></div>
-                <div class="group-md group-middle"><span class="social-title">Share</span>
-                  <div>
-                    <ul class="list-inline list-inline-sm social-list">
-                      <li><a class="icon fa fa-facebook" href="#"></a></li>
-                      <li><a class="icon fa fa-twitter" href="#"></a></li>
-                      <li><a class="icon fa fa-google-plus" href="#"></a></li>
-                      <li><a class="icon fa fa-instagram" href="#"></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div> --}}
-            <!-- Bootstrap tabs-->
-            <div class="col-12">
-              <div class="tabs-custom tabs-horizontal tabs-corporate" id="tabs-5">
-                <!-- Nav tabs-->
-                <ul class="nav nav-tabs">
-                  <li class="nav-item" role="presentation"><a class="nav-link active" href="#tabs-5-2" data-toggle="tab">Introduction</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-5-1" data-toggle="tab">Testimonials</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-5-3" data-toggle="tab">What Will I Learn?</a></li>
-                </ul>
-                <!-- Tab panes-->
-                <div class="tab-content">
-                  <div class="tab-pane fade show active" id="tabs-5-2">
-                    <h3></h3>
-                    <p>{{-- {{  }} --}}Holi</p>
-                  </div>
-                  <div class="tab-pane fade" id="tabs-5-1">
-                    <div class="box-comment">
-                      <div class="unit unit-spacing-md flex-column flex-md-row align-items-lg-center">
-                        <div class="unit-left"><a class="box-comment-figure" href="#"><img src="images/user-1-119x119.jpg" alt="" width="119" height="119"/></a></div>
-                        <div class="unit-body">
-                          <div class="group-sm group-justify">
-                            <div>
-                              <div class="group-sm group-middle">
-                                <p class="box-comment-author"><a href="#">John Doe</a></p>
-                                <div class="box-rating"><span class="icon fa fa-star"></span><span class="icon fa fa-star"></span><span class="icon fa fa-star"></span><span class="icon fa fa-star"></span><span class="icon fa fa-star-half-o"></span></div>
-                              </div>
-                            </div>
-                            <div class="box-comment-time">
-                              <time datetime="2018-11-30">Nov 30, 2018</time>
-                            </div>
-                          </div>
-                          <p class="box-comment-text">The course you delivered me has surpassed all my expectations. It is one of the best, all-purpose items ever crafted. I love everything about my purchase. Reliable, secure, quirky, easy to clean in and out.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <h5 class="text-spacing-100 font-weight-normal">Add Your Comment</h5>
-                    <form class="rd-form rd-mailform">
-                      <div class="row row-14 gutters-14">
-                        <div class="col-sm-6">
-                          <div class="form-wrap">
-                            <input class="form-input" id="contact-your-name-4" type="text" name="name" />
-                            <label class="form-label" for="contact-your-name-4">Your Name</label>
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-wrap">
-                            <input class="form-input" id="contact-email-4" type="email" name="email" />
-                            <label class="form-label" for="contact-email-4">Your E-mail</label>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <div class="form-wrap">
-                            <label class="form-label" for="contact-message-4">Message</label>
-                            <textarea class="form-input textarea-lg" id="contact-message-4" name="message"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <button class="button button-secondary button-pipaluk" type="submit">Submit</button>
-                    </form>
-                  </div>
-                  <div class="tab-pane fade" id="tabs-5-3">
-                    <p>Here you can read some details about a nifty little lifecycle of your order's journey from the time you place your order to your new treasures arriving at your doorstep. At first you choose the product you like. Then you put into your shopping cart and pass the checkout process in a few clicks. Our store offers several payment and delivery methods, so you have an opportunity to choose which one is the most convenient for you.</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
     </div>
-      <!-- Page Footer-->
-      <footer class="section footer-variant-2 footer-modern context-dark">
-        <div class="footer-variant-2-content">
-          <div class="container">
-            <div class="row row-40 justify-content-between">
-              <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="oh-desktop">
-                  <div class="wow slideInRight" data-wow-delay="0s">
-                    <div class="footer-brand"><a href="./"><img src="hxh.png" alt="" width="162" height="51"/></a></div>
-                    <p>Providing professional online business education for students from all over the world since 1999.</p>
-                    <ul class="footer-contacts d-inline-block d-md-block">
-                      <li>
-                        <div class="unit unit-spacing-xs">
-                          <div class="unit-left"><span class="icon fa fa-phone"></span></div>
-                          <div class="unit-body"><a class="link-phone" href="tel:#">+1 323-913-4688</a></div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="unit unit-spacing-xs">
-                          <div class="unit-left"><span class="icon fa fa-clock-o"></span></div>
-                          <div class="unit-body">
-                            <p>Mon-Sat: 07:00AM - 05:00PM</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="unit unit-spacing-xs">
-                          <div class="unit-left"><span class="icon fa fa-location-arrow"></span></div>
-                          <div class="unit-body"><a class="link-location" href="#">4730 Crystal Springs Dr, Los Angeles, CA 90027</a></div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 col-xl-4">
-                <div class="oh-desktop">
-                  <div class="inset-top-18 wow slideInDown" data-wow-delay="0s">
-                    <h5 class="text-spacing-75">Newsletter</h5>
-                    <p>Join Our Email List for Tips and Useful Information</p>
-                    <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
-                      <div class="form-wrap">
-                        <input class="form-input" id="subscribe-form-5-email" type="email" name="email">
-                        <label class="form-label" for="subscribe-form-5-email">Enter Your E-mail</label>
-                      </div>
-                      <button class="button button-block button-secondary-4 button-ujarak" type="submit">Subscribe</button>
-                    </form>
-                    <div class="group-lg group-middle">
-                      <p class="text-white">Follow Us</p>
-                      <div>
-                        <ul class="list-inline list-inline-sm footer-social-list-2">
-                          <li><a class="icon fa fa-facebook" href="#"></a></li>
-                          <li><a class="icon fa fa-twitter" href="#"></a></li>
-                          <li><a class="icon fa fa-google-plus" href="#"></a></li>
-                          <li><a class="icon fa fa-instagram" href="#"></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-xl-3">
-                <div class="oh-desktop">
-                  <div class="inset-top-18 wow slideInLeft" data-wow-delay="0s">
-                    <h5 class="text-spacing-75">Gallery</h5>
-                    <div class="row row-10 gutters-10">
-                      <div class="col-6 col-sm-3 col-lg-6">
-                        <!-- Thumbnail Classic-->
-                        <article class="thumbnail thumbnail-mary">
-                          <div class="thumbnail-mary-figure"><img src="images/gallery-image-10-128x120.jpg" alt="" width="128" height="120"/>
-                          </div>
-                          <div class="thumbnail-mary-caption"><a class="icon fl-bigmug-line-zoom60" href="images/grid-gallery-4-1200x800-original.jpg" data-lightgallery="item"><img src="images/gallery-image-10-128x120.jpg" alt="" width="128" height="120"/></a>
-                          </div>
-                        </article>
-                      </div>
-                      <div class="col-6 col-sm-3 col-lg-6">
-                        <!-- Thumbnail Classic-->
-                        <article class="thumbnail thumbnail-mary">
-                          <div class="thumbnail-mary-figure"><img src="images/gallery-image-11-128x120.jpg" alt="" width="128" height="120"/>
-                          </div>
-                          <div class="thumbnail-mary-caption"><a class="icon fl-bigmug-line-zoom60" href="images/gallery-image-11-1200x800-original.jpg" data-lightgallery="item"><img src="images/gallery-image-11-128x120.jpg" alt="" width="128" height="120"/></a>
-                          </div>
-                        </article>
-                      </div>
-                      <div class="col-6 col-sm-3 col-lg-6">
-                        <!-- Thumbnail Classic-->
-                        <article class="thumbnail thumbnail-mary">
-                          <div class="thumbnail-mary-figure"><img src="images/gallery-image-12-128x120.jpg" alt="" width="128" height="120"/>
-                          </div>
-                          <div class="thumbnail-mary-caption"><a class="icon fl-bigmug-line-zoom60" href="images/fullwidth-masonry-gallery-11-1200x800-original.jpg" data-lightgallery="item"><img src="images/gallery-image-12-128x120.jpg" alt="" width="128" height="120"/></a>
-                          </div>
-                        </article>
-                      </div>
-                      <div class="col-6 col-sm-3 col-lg-6">
-                        <!-- Thumbnail Classic-->
-                        <article class="thumbnail thumbnail-mary">
-                          <div class="thumbnail-mary-figure"><img src="images/gallery-image-13-128x120.jpg" alt="" width="128" height="120"/>
-                          </div>
-                          <div class="thumbnail-mary-caption"><a class="icon fl-bigmug-line-zoom60" href="images/gallery-image-13-1200x800-original.jpg" data-lightgallery="item"><img src="images/gallery-image-13-128x120.jpg" alt="" width="128" height="120"/></a>
-                          </div>
-                        </article>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footer-variant-2-bottom-panel">
-          <div class="container">
-            <!-- Rights-->
-            <div class="group-sm group-sm-justify">
-              <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span> <span>Business School</span>. All rights reserved
-              </p>
-              <p class="rights"><a href="privacy-policy.html">Privacy Policy</a></p>
-            </div>
-          </div>
-        </div>
-      </footer>
-    <!-- Global Mailform Output-->
-    <div class="snackbars" id="form-output-global"></div>
-    <!-- Javascript-->
-    <script src="js/core.min.js"></script>
-    <script src="js/script.js"></script>
-  <!-- Google Tag Manager --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P9FT69" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-P9FT69');</script><!-- End Google Tag Manager --></body>
-</html>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+@endsection

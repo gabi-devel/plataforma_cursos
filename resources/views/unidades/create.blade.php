@@ -24,10 +24,7 @@
                     <div class="col-md-6 mx-auto">
                         <label for="orden">Posición de la unidad:</label>
                         <select name="orden" id="orden">
-                            @foreach($unidades as $unidad)
-                                <option value="{{ $unidad->orden - 1 }}">Antes de Unidad {{ $unidad->orden }} - O sea: {{ $unidad->orden - 1 }}</option>
-                            @endforeach
-                            <option value="{{ $unidades->count() + 1 }}">Al final: {{ $unidad->orden + 1 }}</option>
+                            <option value="">Seleccione un curso primero</option>
                         </select>
                     </div>
                 </div>        
@@ -83,18 +80,34 @@ $(document).ready(function() {
                     var $ordenSelect = $('#orden');
                     $ordenSelect.empty(); // Limpiar opciones anteriores
 
-                    // Recorrer las unidades y agregarlas al select
-                    unidades.forEach(function(unidad, index) {
-                        $ordenSelect.append('<option value="' + (unidad.orden - 1) + '">Antes de Unidad ' + (unidad.orden) + '- O sea: ' + (unidad.orden - 1) + '</option>');
-                    });
+                    var num_orden_maximo = unidades.reduce(function(max, unidad) {
+                        return unidad.orden > max ? unidad.orden : max;
+                    }, 0); // console.log("Maximo: ", num_orden_maximo);
 
-                    // Opción para agregar al final
-                    $ordenSelect.append('<option value="' + (unidades.length + 1) + '">Al final - O sea: ' + (unidades.length + 1) + '</option>');
+                    if (num_orden_maximo == 0) {
+                        // Si no hay unidades, permitir 0 y 1
+                        $ordenSelect.append('<option value="0">Unidad 0</option>');
+                        $ordenSelect.append('<option value="1" selected>Unidad 1</option>');
+                    } else {
+                        unidades.forEach(function(unidad) {
+                            if (unidad.orden > num_orden_maximo) {
+                                num_orden_maximo = unidad.orden;
+                            }
+                        });
+                        // Recorrer las unidades y agregarlas al select
+                        unidades.forEach(function(unidad, index) {
+                            $ordenSelect.append('<option value="' + (unidad.orden) + '">Antes de Unidad ' + (unidad.orden) + '- O sea: ' + (unidad.orden) + '</option>');
+                        });
+
+                        // Opción para agregar al final
+                        $ordenSelect.append('<option value="' + (num_orden_maximo + 1) + '" selected>Al final - O sea: ' + (num_orden_maximo + 1) + '</option>');
+                    }                 
                 },
                 error: function() {
                     alert('Error al obtener las unidades.');
                 }
             });
+           
         } else {
             // Si no hay curso seleccionado, limpiar el select de unidades
             $('#orden').empty();

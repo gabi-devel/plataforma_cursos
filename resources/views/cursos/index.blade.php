@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h4 class="mb-5">
     Por ahora, la página inicial es este index de cursos. <br>
     <a href="{{ route('pendientes') }}">Más tareas pendientes por hacer</a>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ $curso->titulo }}</h5>
                   <p class="card-text">{{ $curso->descripcion }}</p>
-                  <a href="{{ route('unidades.index') }}" class="btn btn-primary">Ingresar</a>
+                  <a href="{{ route('unidades_curso', ['curso_id' => $curso->id]) }}" class="btn btn-primary">Ingresar</a>
                 </div>
             </div>
         </div>

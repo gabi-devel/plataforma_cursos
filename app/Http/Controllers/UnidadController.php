@@ -10,7 +10,10 @@ class UnidadController extends Controller
 {
     public function index()
     {
-        $unidades = Unidad::all();
+    }
+    public function curso($curso_id)
+    {
+        $unidades = Unidad::where('curso_id', $curso_id)->orderBy('orden')->get();
         return view('unidades.index', compact('unidades'));
     }
 
@@ -30,7 +33,7 @@ class UnidadController extends Controller
     {
         $request->validate([
             'curso_id' => 'required|exists:cursos,id',
-            'orden' => 'required',
+            'orden' => 'required|integer|min:0',
             'titulo' => 'nullable|string',
             'contenido' => 'nullable',
             'video' => 'nullable'
@@ -39,11 +42,26 @@ class UnidadController extends Controller
         $cursoId = $request->input('curso_id');
         $posicionDeseada = $request->input('orden');
 
+        // Verificar si ya existen unidades para el curso
+        $totalUnidades = Unidad::where('curso_id', $cursoId)->count();
+        // Permitir seleccionar Unidad 1 o 0:
+        if ($totalUnidades == 0) {
+            if (!in_array($posicionDeseada, [0, 1])) {
+                return back()->withErrors(['orden' => 'Debe elegir 0 o 1 como posición inicial cuando no hay unidades.']);
+            }
+        } else {
+            // Verificar si ya existe una unidad con ese num de orden
+            $existePosicion = Unidad::where('curso_id', $cursoId)
+                                    ->where('orden', $posicionDeseada)
+                                    ->exists();
 
-        // Incrementar el orden de las unidades siguientes
-        Unidad::where('curso_id', $cursoId)
-                ->where('orden', '>=', $posicionDeseada)
-                ->increment('orden');
+            if ($existePosicion) {
+                // Incrementar el orden de las unidades siguientes
+                Unidad::where('curso_id', $cursoId)
+                        ->where('orden', '>=', $posicionDeseada)
+                        ->increment('orden');
+            }
+        }
 
         $unidad = new Unidad();
         $unidad->curso_id = $cursoId;
