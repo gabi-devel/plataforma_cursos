@@ -12,10 +12,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/dashboard';
 
     public function __construct()
     {
@@ -26,22 +23,16 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            /* 'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'], */
+            'password' => ['required', 'string', 'min:1', 'confirmed'],
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
     protected function create(array $data)
     {
-        /* if($data['email'] == NULL) {
+        if($data['email'] == NULL) {
             $data['email'] = "";
-        } */
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

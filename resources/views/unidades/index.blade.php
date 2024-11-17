@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="../css/bootstrap.css"> 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
 @extends('layouts.app')
 
 @section('content')
@@ -280,21 +277,14 @@
               </a>
             </li> --}}
             @foreach ($unidades as $unidad)
-            <li class="nav-item" style="
-                        border-bottom: 1px solid #83a7f3;">
-              <a class="nav-link" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file align-text-bottom" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                 Unidad {{$unidad->orden }}
-              </a>
-            </li>
+              <li class="nav-item" style="
+                          border-bottom: 1px solid #83a7f3;">
+                <a class="nav-link" href="#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file align-text-bottom" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  Unidad {{ $unidad->orden }}
+                </a>
+              </li>
             @endforeach
-            <li class="nav-item" style="
-                        border-bottom: 1px solid #83a7f3;">
-              <a class="nav-link" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file align-text-bottom" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                 Examen
-              </a>
-            </li>
             {{-- <li class="nav-item">
               <a class="nav-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart align-text-bottom" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
@@ -321,43 +311,88 @@
             </li> --}}
           </ul>
   
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+          {{-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
             <span>Saved reports</span>
             <a class="link-secondary" href="#" aria-label="Add a new report">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle align-text-bottom" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
             </a>
-          </h6>
+          </h6> --}}
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
               <a class="nav-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text align-text-bottom" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Current month
+                Examen
               </a>
             </li>
           </ul>
         </div>
       </nav>
       
-      <section class="section section-sm section-first bg-light col-md-9 col-lg-10 ">
+      <section class="section section-sm section-first bg-light col-md-9 col-lg-10">
         <div class="container">
-          <div class="row row-50">
-            <div class="col-12">
-              <div class="mt-3">
-                <h1>Titulo</h1>
-                <h2>Subtítulo</h2> 
-                <p>Contenido
-                  <br>Texto...............
-                </p>
-                <h3>Video o Link del video de Youtube</h3>
-                <h4 class="text-end">Clase Siguiente (Link)</h4>
-              </div>
+            <div class="row row-50">
+                <div class="col-12">
+                    <div class="mt-3" class="conte" id="contenido">
+                        <h1 id="titulo">Titulo del curso</h1>
+                        <h3 id="subtitulo"></h3> <br>
+                        <h5 id="texto">Contenido</h5>
+                        <h2></h2>
+                        <h2><a href="{{ route('ver_multiple_choice', 1) }}" class="btn btn-primary mt-4">Multiple choice</a></h2>
+                        <h4 class="text-end"><a href="#" id="link-siguiente" class="link-sig">Clase Siguiente</a></h4>
+                    </div>
+                </div>
             </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </div> <br><br><br><br>
+    </section> 
+    <script>
+      // Pasar los datos de las unidades a JavaScript
+      const unidades = @json($unidades);
+      function cargarContenido(unidadId) {
+        // Encontrar la unidad actual
+        const unidad = unidades.find(u => u.id == unidadId);
+        if (!unidad) return;
 
+        // Actualizar el título
+        document.getElementById('titulo').innerText = unidad.titulo;
+
+        // Actualizar el subtítulo, o ocultarlo si no existe
+        const subtituloElement = document.getElementById('subtitulo');
+        if (unidad.subtitulo) {
+            subtituloElement.innerText = unidad.subtitulo;
+            subtituloElement.style.display = ''; // Mostrar el subtítulo
+        } else {
+            subtituloElement.style.display = 'none'; // Ocultar si no hay subtítulo
+        }
+
+        // Actualizar el contenido
+        document.getElementById('texto').innerHTML = unidad.contenido;
+
+        // Obtener la siguiente unidad
+        const indiceActual = unidades.findIndex(u => u.id == unidadId);
+        const siguienteUnidad = unidades[indiceActual + 1];
+
+        // Actualizar el enlace "Clase Siguiente"
+        const linkSiguiente = document.getElementById('link-siguiente');
+        if (siguienteUnidad) {
+            linkSiguiente.innerText = 'Clase Siguiente';
+            linkSiguiente.href = `#`; // Usar # ya que la ruta no cambia
+            linkSiguiente.onclick = function (event) {
+                event.preventDefault(); // Evitar recargar la página
+                cargarContenido(siguienteUnidad.id); // Cargar el contenido de la siguiente unidad
+            };
+        } else {
+            linkSiguiente.innerText = '';
+            linkSiguiente.href = '#';
+            linkSiguiente.onclick = null; // No hacer nada si no hay más unidades
+        }
+      }
+
+      // Llamar a la función con la primera unidad al cargar la página
+      if (unidades.length > 0) {
+          cargarContenido(unidades[0].id);
+      }
+    </script>
+      
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 @endsection

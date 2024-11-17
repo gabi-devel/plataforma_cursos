@@ -3,8 +3,7 @@
 @section('content')
 <div class="container py-4">
     <h4 class="mb-5">
-    Por ahora, la página inicial es este index de cursos. <br>
-    <a href="{{ route('pendientes') }}">Más tareas pendientes por hacer</a>
+    {{-- <a href="{{ route('pendientes') }}">Tareas pendientes por hacer</a> --}}
     </h4>
 
     <h2>Listado de Cursos</h2>
@@ -19,6 +18,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ $curso->titulo }}</h5>
                   <p class="card-text">{{ $curso->descripcion }}</p>
+                  {{-- <a href="{{ route('unidades_curso', ['curso_id' => $curso->id]) }}" class="btn btn-primary">Ingresar</a> --}}
                   <a href="{{ route('unidades_curso', ['curso_id' => $curso->id]) }}" class="btn btn-primary">Ingresar</a>
                 </div>
             </div>
@@ -27,8 +27,9 @@
     </div>
     @endif
 
-    <h5>Formularios: 
+    {{-- <h5>Formularios: 
     <a href="{{ route('cursos.create')}}">Crear Curso</a> -
-    <a href="{{ route('unidades.create')}}">Crear Unidad</a></h5>
+    <a href="{{ route('unidades.create')}}">Crear Unidad</a></h5> --}}
+    {{-- <a href="{{ route('ver_multiple_choice', $curso->id) }}" class="btn btn-primary mt-4">Ir al Examen</a> --}}
 </div>
 @endsection

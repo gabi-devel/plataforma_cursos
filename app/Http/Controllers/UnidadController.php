@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 
 class UnidadController extends Controller
 {
-    public function index()
+    public function index($curso_id)
     {
+        $unidades = Unidad::where('curso_id', $curso_id)->orderBy('orden')->get();
+        return view('unidades.index', compact('unidades'));
     }
+
     public function curso($curso_id)
     {
         $unidades = Unidad::where('curso_id', $curso_id)->orderBy('orden')->get();
@@ -24,6 +27,7 @@ class UnidadController extends Controller
 
         return view('unidades.create', compact('cursos', 'unidades'));
     }
+    
     public function obtenerUnidades($cursoId) {
         $unidades = Unidad::where('curso_id', $cursoId)->orderBy('orden')->get();
         return response()->json($unidades);
@@ -63,14 +67,22 @@ class UnidadController extends Controller
             }
         }
 
-        $unidad = new Unidad();
+        /* $unidad = new Unidad();
         $unidad->curso_id = $cursoId;
         $unidad->orden = $posicionDeseada;
         $unidad->titulo = $request->input('titulo');
         $unidad->contenido = $request->input('contenido');
         $unidad->video = $request->input('video');
         $unidad->habilitado = $request->input('habilitado', 1); // Habilitado 
-        $unidad->save();
+        $unidad->save(); */
+        Unidad::create([
+            'curso_id' => $cursoId,
+            'orden' => $posicionDeseada,
+            'titulo' => $request->input('titulo'),
+            'contenido' => $request->input('contenido'),
+            'video' => $request->input('video'),
+            'habilitado' => $request->input('habilitado', 1) // Habilitado
+        ]);
 
         return redirect()->route('unidades.create')->with('success', 'Unidad registrada correctamente.');
     }
