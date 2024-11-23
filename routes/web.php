@@ -35,7 +35,7 @@ Route::get('/admin/dashboard', function() {
 })->middleware('auth');
 
 Route::resource('cursos', CursoController::class)->middleware('auth');
-/* Route::resource('unidades', UnidadController::class)->middleware('auth'); */
+Route::resource('unidades', UnidadController::class)->middleware('auth');
 
 // Entrar por el link al curso, con sus unidades
 Route::get('/curso/{curso_id}', [UnidadController::class, 'index'])->name('unidades_curso')->middleware('auth');
@@ -45,6 +45,12 @@ Route::get('/unidad', [UnidadController::class, 'create'])->name('unidades.creat
 
 // Obtener las unidades de un curso específico
 Route::get('/cursos/{curso}/unidades', [UnidadController::class, 'obtenerUnidades'])->name('unidades.get');
+Route::get('/cursos/{cursoId}', [CursoController::class, 'mostrarCurso'])->name('cursos.mostrar');
+Route::post('/marcar-unidad-leida', [UnidadController::class, 'marcarUnidadLeida'])->name('marcar.unidad.leida')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cursos/{curso_id}/unidades/{unidad_id}', [UnidadController::class, 'show'])->name('unidades.show');
+    Route::get('/cursos/{curso_id}/unidades', [UnidadController::class, 'index'])->name('unidades.index');
+});
 
 
 /* Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); */

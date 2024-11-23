@@ -27,9 +27,9 @@
     </div>
     @endif
 
-    {{-- <h5>Formularios: 
+    <h5>Formularios: 
     <a href="{{ route('cursos.create')}}">Crear Curso</a> -
-    <a href="{{ route('unidades.create')}}">Crear Unidad</a></h5> --}}
+    <a href="{{ route('unidades.create')}}">Crear Unidad</a></h5> 
     {{-- <a href="{{ route('ver_multiple_choice', $curso->id) }}" class="btn btn-primary mt-4">Ir al Examen</a> --}}
 </div>
 @endsection

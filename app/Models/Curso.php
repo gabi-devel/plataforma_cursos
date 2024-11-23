@@ -18,4 +18,10 @@ class Curso extends Model
         'habilitado'
     ];
     /* public $timestamps = false; */
+
+    public function usuarios() {
+        return $this->belongsToMany(User::class, 'usuarios_cursos')
+                    ->withPivot('unidad_leida')
+                    ->withTimestamps();
+    }
 }

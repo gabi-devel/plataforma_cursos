@@ -6,18 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('descripcion');
-            $table->string('imagen');
-            $table->boolean('habilitado');
-            $table->timestamps();
+            $table->text('descripcion');
+            $table->string('imagen')->nullable(); // Permitir que la imagen sea opcional
+            $table->boolean('habilitado')->default(true); // Habilitado por defecto
+            $table->timestamps(); // created_at y updated_at
         });
     }
-    
+
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('cursos');

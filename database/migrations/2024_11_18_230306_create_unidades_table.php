@@ -6,20 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('unidades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
-            $table->integer('num_unidad');
+            $table->integer('orden');
             $table->string('titulo');
-            $table->string('contenido');
-            $table->string('video');
-            $table->boolean('habilitado');
-            $table->timestamps();
+            $table->text('contenido');
+            $table->text('video')->nullable();
+            $table->boolean('habilitado')->default(true); // Habilitado por defecto
+            $table->timestamps(); // created_at y updated_at
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('unidades');
