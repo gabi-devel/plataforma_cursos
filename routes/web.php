@@ -48,8 +48,8 @@ Route::get('/cursos/{curso}/unidades', [UnidadController::class, 'obtenerUnidade
 Route::get('/cursos/{cursoId}', [CursoController::class, 'mostrarCurso'])->name('cursos.mostrar');
 Route::post('/marcar-unidad-leida', [UnidadController::class, 'marcarUnidadLeida'])->name('marcar.unidad.leida')->middleware('auth');
 Route::middleware(['auth'])->group(function () {
-    Route::get('/cursos/{curso_id}/unidades/{unidad_id}', [UnidadController::class, 'show'])->name('unidades.show');
-    Route::get('/cursos/{curso_id}/unidades', [UnidadController::class, 'index'])->name('unidades.index');
+    /* Route::get('/cursos/{curso_id}/unidades', [UnidadController::class, 'show'])->name('unidades.show'); */
+    Route::get('/cursos/{curso_id}/unidades/{unidad_id?}', [UnidadController::class, 'index'])->name('unidades.index');
 });
 
 
@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pendientes', function () {return view('pendientes');})->name('pendientes');
 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/cursos/{cursoId}/usuarios', [AdminController::class, 'mostrarUsuarios'])->name('cursos.usuarios');
 
 //Route::get('/examenes/{unidadId}/multiple-choice', [MultipleChoiceController::class, 'mostrarMultipleChoice'])->name('ver_multiple_choice');
 Route::get('/unidades/1/multiple-choice', [MultipleChoiceController::class, 'mostrarMultipleChoice'])->name('ver_multiple_choice');

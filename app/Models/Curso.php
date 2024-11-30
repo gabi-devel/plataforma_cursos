@@ -24,4 +24,8 @@ class Curso extends Model
                     ->withPivot('unidad_leida')
                     ->withTimestamps();
     }
+
+    public function unidades() {
+        return $this->hasMany(Unidad::class, 'curso_id');
+    }
 }

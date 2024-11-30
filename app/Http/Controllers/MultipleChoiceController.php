@@ -11,18 +11,24 @@ use Illuminate\Support\Facades\Auth;
 
 class MultipleChoiceController extends Controller
 {
-    public function mostrarMultipleChoice()
-    {$unidadId =1;
+    public function mostrarMultipleChoice() {
+        $unidadId =1;
         // Obtiene todas las preguntas relacionadas con la unidad
         $preguntas = PreguntaMultipleChoice::where('examen_id', $unidadId)
             ->with('opcionesMultipleChoice')
-            ->get();
+            ->get()
+            ->shuffle(); // Mezcla las preguntas
+
+        // Mezcla las opciones para cada pregunta
+        $preguntas->each(function ($pregunta) {
+            $pregunta->opcionesMultipleChoice = $pregunta->opcionesMultipleChoice->shuffle();
+        });
 
         return view('examenes.multiple_choice', compact('preguntas'));
     }
 
-    public function guardarRespuestas(Request $request)
-    {$unidadId = 1;
+    public function guardarRespuestas(Request $request) {
+        $unidadId = 1;
         $user = Auth::user();
 
         // Inicializamos el resultado
@@ -51,6 +57,7 @@ class MultipleChoiceController extends Controller
             'user_id' => $user->id,
             'resultado' => $resultado,
         ]);
-        return redirect()->back()->with('success', "Has respondido correctamente $resultado de $totalPreguntas preguntas.");
+        
+        return view('examenes.resultado', compact('resultado', 'totalPreguntas'));
     }
 }

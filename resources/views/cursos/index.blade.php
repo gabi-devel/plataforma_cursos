@@ -2,10 +2,6 @@
 
 @section('content')
 <div class="container py-4">
-    <h4 class="mb-5">
-    {{-- <a href="{{ route('pendientes') }}">Tareas pendientes por hacer</a> --}}
-    </h4>
-
     <h2>Listado de Cursos</h2>
     @if($cursos->isEmpty())
         <p class="text-center">No hay cursos disponibles.</p>
