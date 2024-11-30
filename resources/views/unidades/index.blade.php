@@ -1,41 +1,11 @@
 @extends('layouts.app')
 
+@section('estilos')
+  @vite(['resources/css/unidades.css'])
+@endsection
+
 @section('content')
-
-<style>
-.nav-item {
-  /* border-bottom: 1px solid #242c50; */
-  border: 1px solid #242c50;
-  border-top: 0;
-}
-.item-unidades {
-  background-color: #242c50;
-  color: white;
-}
-.item-unidades.disabled {
-  background-color: #f8f9fa;
-  color: black;
-}
-.link-examen {
-  color: rgb(51, 51, 51);
-}
-h1 {
-  background-color: antiquewhite;
-  color: #242c50;
-}
-.boton {
-    color: white;
-    background-color: #242c50;
-    border-color: #242c50;
-} 
-.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
-    /* color: var(--bs-btn-active-color); */
-    color: var(--bs-btn-active-color);
-    background-color: #242c50;
-    border-color: #242c50;
-}
-</style>
-
+<link href="{{ asset('css/unidades.css') }}" rel="stylesheet">
     <div class="page row" style="margin: 0">
 
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse bg-secondary">
