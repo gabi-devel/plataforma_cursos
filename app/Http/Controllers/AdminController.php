@@ -10,7 +10,19 @@ use App\Models\AlumnoExamen;
 
 class AdminController extends Controller
 {
+    /* public function index2() {
+        $cursos = User::with('datos')->get();
+
+        $cursos = $cursos->sortBy(function ($curso) {
+            return $curso->datos->apellido ?? ''; // Ordenar por apellido, o vacío si no existe
+        });
+
+        return view('admin.dashboard', compact('cursos'));
+    } */
     public function index() {
+        return view('admin.dashboard');
+    }
+    public function index22() {
         // Obtener todos los cursos con relaciones
         //$cursos = Curso::with(['unidades', 'usuarios'])->get();
         $cursos = Curso::withCount(['usuarios' => function ($query) {
@@ -18,7 +30,7 @@ class AdminController extends Controller
         }])->get();
 
         // Crear un arreglo para la vista con la información de cada curso
-        $cursosConEstadisticas = $cursos->map(function ($curso) {
+        /* $cursosConEstadisticas = $cursos->map(function ($curso) {
             // Filtrar solo empleados inscritos en este curso
             $empleadosInscritos = $curso->usuarios()->where('rol', 'empleado')->get();
 
@@ -38,17 +50,63 @@ class AdminController extends Controller
             $curso->cantidadEstudiantes = $cantidadEstudiantes;
             $curso->cantidadCompletados = $cantidadCompletados;
             return $curso; // Mantener el objeto del modelo Curso
+        }); */
+        $cursosConEstadisticas = $cursos->map(function ($curso) {
+            // Filtrar solo empleados inscritos en este curso
+            $empleadosInscritos = $curso->usuarios()->where('rol', 'empleado')->get();
+    
+            // Contar estudiantes inscritos (empleados)
+            $cantidadEstudiantes = $empleadosInscritos->count();
+    
+            // Determinar la última unidad del curso (mayor orden)
+            $ultimaUnidadOrden = $curso->unidades->max('orden');
+    
+            // Contar cuántos empleados han completado el curso
+            $cantidadCompletados = $empleadosInscritos->filter(function ($empleado) use ($curso, $ultimaUnidadOrden) {
+                $unidadLeida = $empleado->cursos->find($curso->id)->pivot->unidad_leida;
+                return $unidadLeida >= $ultimaUnidadOrden;
+            })->count();
+    
+            // Contar cuántos empleados aprobaron el examen del curso
+            $cantidadAprobados = $empleadosInscritos->filter(function ($empleado) use ($curso) {
+                $examenResultado = AlumnoExamen::where('user_id', $empleado->id)
+                    ->where('examen_id', $curso->id) // Asegura que el examen corresponde al curso
+                    ->orderBy('id', 'desc')
+                    ->first();
+    
+                return $examenResultado && $examenResultado->resultado >= 60;
+            })->count();
+    
+            // Agregar las estadísticas al curso
+            $curso->cantidadEstudiantes = $cantidadEstudiantes;
+            $curso->cantidadCompletados = $cantidadCompletados;
+            $curso->cantidadAprobados = $cantidadAprobados;
+    
+            return $curso; // Mantener el objeto del modelo Curso
         });
+    
+
         
-        return view('admin.dashboard', ['cursos' => $cursosConEstadisticas]);
+        return view('admin.cursos', ['cursos' => $cursosConEstadisticas]);
     }
 
     public function mostrarUsuarios($cursoId){
         // Obtener el curso específico
         //$curso = Curso::with('usuarios')->findOrFail($cursoId);
-        $curso = Curso::withCount(['usuarios' => function ($query) {
+
+        /* $curso = Curso::withCount(['usuarios' => function ($query) {
             $query->where('rol', 'empleado');
+        }, 'unidades'])->findOrFail($cursoId); */
+        // Obtener el curso específico con usuarios y unidades
+        $curso = Curso::with(['usuarios' => function ($query) {
+            $query->with('datos')->where('rol', 'empleado'); // Cargar relación 'datos' para cada usuario
         }, 'unidades'])->findOrFail($cursoId);
+
+        /* $cursos = User::with('datos')->get();
+
+        $cursos = $cursos->sortBy(function ($curso) {
+            return $curso->datos->apellido ?? ''; // Ordenar por apellido, o vacío si no existe
+        }); */
 
         /* $cursosConEstadisticas = $cursos->map(function ($curso) {
             // Filtrar solo los empleados inscritos
@@ -67,21 +125,26 @@ class AdminController extends Controller
                 // Obtener el resultado del examen
                 $examenResultado = AlumnoExamen::where('user_id', $empleado->id)
                     ->where('examen_id', $curso->id) // Asegura que el examen corresponde al curso
+                    ->orderBy('id', 'desc')
                     ->first();
 
                 // Determinar si está aprobado, desaprobado o aún no rindió
-                $empleado->examenEstado = $examenResultado 
+                $empleado->examenEstado = $examenResultado && $examenResultado->resultado != 0
                 ? ($examenResultado->resultado >= 60 ? 'Aprobado' : 'Desaprobado')
-                : ''; // En blanco si no hay registro
+                : ''; // En blanco si no hay registro o si el resultado es 0
 
                 return $empleado;
             /* });
             $curso->empleados = $empleadosConExamenes;
             return $curso; */
-        });
+//})->sortBy('name')->values();
+})->sortBy(function ($empleado) {
+    return $empleado->datos->apellido ?? ''; // Ordenar por apellido, o vacío si no existe
+})->values();
         // Pasar los datos a la vista
         return view('admin.curso_usuarios', [
             'curso' => $curso,
+            /* 'cursos' => $cursos, */
             'empleados' => $empleadosConExamenes
         ]);
     }

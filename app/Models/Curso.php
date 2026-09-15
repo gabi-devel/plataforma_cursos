@@ -17,7 +17,7 @@ class Curso extends Model
         'imagen',
         'habilitado'
     ];
-    /* public $timestamps = false; */
+    public $timestamps = false;
 
     public function usuarios() {
         return $this->belongsToMany(User::class, 'usuarios_cursos')
@@ -27,5 +27,15 @@ class Curso extends Model
 
     public function unidades() {
         return $this->hasMany(Unidad::class, 'curso_id');
+    }
+
+    public function profesor()
+    {
+        //return $this->belongsTo(Profesor::class, 'profesor_id');
+        return $this->belongsTo(Profesor::class, 'profesor_id', 'user_id');
+    }
+    public function profesorRol()
+    {
+        return $this->belongsTo(User::class, 'profesor_id');
     }
 }

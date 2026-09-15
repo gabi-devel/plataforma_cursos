@@ -1,0 +1,59 @@
+.background-main {
+    /* background-image: url('../HSE-Banner3.jpg'); // Cambia la ruta según corresponda 
+    background-size: cover; // Asegura que ocupe toda la pantalla 
+    background-position: center; // Centra la imagen
+    height: 100vh; // Ocupa toda la altura de la pantalla 
+   //  display: flex;
+    //align-items: center; Centra el contenido verticalmente 
+    //justify-content: center; // Centra el contenido horizontalmente 
+    padding-top: 60px; // Ajusta el espacio debajo del navbar (si es fijo)*/
+    background-color: #c9c9c966;
+    background-color: #242c50;
+    background-image: url(../HSE-Banner10.jpg);
+    background-size: cover;
+} 
+/* .background-main .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // Color negro con opacidad del 50% 
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 100; 
+} */
+
+.row.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equal-height .col-md-4 {
+    display: flex;
+    flex-direction: column;
+}
+
+.equal-height .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el contenido en la tarjeta */
+    flex-grow: 1; /* Permite que el card-body crezca y ocupe el espacio necesario */
+}
+
+.card-text {
+    flex-grow: 1; /* Hace que el párrafo ocupe el espacio necesario */
+}
+
+.btn {
+    margin-top: auto; /* Empuja el botón hacia abajo */
+}

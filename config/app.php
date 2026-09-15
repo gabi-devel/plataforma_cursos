@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Barryvdh\DomPDF\Facade as PDF;
 
 return [
 

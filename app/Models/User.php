@@ -20,18 +20,27 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password',
-        'remember_token',
-    ];
+        'remember_token', 
+    ];/*  */
 
-    /* protected $casts = [
+    protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed', 
-    ];*/
+    ];
 
     public function cursos()
     {
         return $this->belongsToMany(Curso::class, 'usuarios_cursos')
                     ->withPivot('unidad_leida')
                     ->withTimestamps();
+    }
+
+    public function datos()
+    {
+        return $this->hasOne(UserDato::class, 'user_id', 'id');
+    }
+    public function cursosRol()
+    {
+        return $this->hasMany(Curso::class, 'profesor_id');
     }
 }

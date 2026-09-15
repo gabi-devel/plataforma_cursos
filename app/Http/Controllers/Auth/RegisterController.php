@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/admin/dashboard';
+    protected $redirectTo = 'auth.register';
 
     public function __construct()
     {

@@ -1,0 +1,34 @@
+.background-main {
+    background-image: url('../HSE-Banner11.jpg'); /* Cambia la ruta según corresponda */
+    background-size: cover; /* Asegura que ocupe toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+   /*  display: flex;
+    align-items: center; Centra el contenido verticalmente 
+    justify-content: center;*/ /* Centra el contenido horizontalmente */
+    /* padding-top: 60px; Ajusta el espacio debajo del navbar (si es fijo) */
+}
+.background-main .overlay {
+    position: absolute;
+    /* top: 0; */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
+    background-color: rgb(255 255 255 / 11%);
+    z-index: 1;
+}
+.container {
+    position: relative;
+    z-index: 100; /* El formulario queda encima del fondo */
+}
+.card {
+    /* background-color: #00000066;
+    color: white; */
+    background-color: #fcfcfcba;
+    margin-top: 10vh;
+}
+.card-header {
+    background-color: #242a50f2 /* #3c4363 */; 
+    color: white;
+}

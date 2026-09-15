@@ -17,7 +17,19 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
                 //dd("Guardia: $guard, Usuario autenticado: " . Auth::guard($guard)->user());
             if (Auth::guard($guard)->check()) { 
-                return redirect()->route('login');
+                $user = Auth::user();
+                
+                // Si el usuario es admin y está intentando acceder a la página de registro, permitirlo
+                if ($user->rol === 'admin' && $request->is('register')) {
+                    return $next($request);
+                }
+
+                // Redirección basada en el rol
+                return match ($user->rol) {
+                    'admin' => redirect('/admin/dashboard'),
+                    'profesor' => redirect()->route('profesores.home'),
+                    default => redirect('/cursos'),
+                };
             }
         }
 

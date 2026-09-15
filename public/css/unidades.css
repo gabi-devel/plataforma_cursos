@@ -1,0 +1,55 @@
+.nav-item {
+    /* border-bottom: 1px solid #242c50; */
+    border: 1px solid #242c50;
+    border-top: 0;
+}
+.item-unidades {
+    background-color: #242c50;
+    color: white;
+}
+.item-unidades.disabled {
+    background-color: #f8f9fa;
+    color: black;
+}
+.link-examen {
+    background-color: #f8f9fa;
+    color: rgb(51, 51, 51); 
+}
+h1 {
+    background-color: antiquewhite;
+    color: #242c50;
+}
+.boton {
+    color: white;
+    background-color: #242c50;
+    border-color: #242c50;
+} 
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    /* color: var(--bs-btn-active-color); */
+    color: var(--bs-btn-active-color);
+    background-color: #242c50;
+    border-color: #242c50;
+    color: #fff;
+}
+#titulo {
+    background-color: #242c50;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 8px 0;
+}
+#sidebarMenu {
+    /* max-height: 100vh; */
+}
+
+@media (max-width: 770px) {
+    .container {
+        max-width: unset;
+    }
+    .collapse:not(.show) {
+        display: unset;
+    }
+    .conte {
+        margin-right: unset !important;
+    }
+}

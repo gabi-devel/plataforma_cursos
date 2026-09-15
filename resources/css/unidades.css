@@ -32,3 +32,15 @@ h1 {
 #sidebarMenu {
     max-height: 100vh;
 }
+
+@media (max-width: 770px) {
+    .container {
+        max-width: unset;
+    }
+    .collapse:not(.show) {
+        display: unset;
+    }
+    .conte {
+        margin-right: unset !important;
+    }
+}

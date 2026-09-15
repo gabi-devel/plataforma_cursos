@@ -3,14 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
+use App\Models\Unidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CursoController extends Controller
 {
     public function index()
     {
-        $cursos = Curso::all();
-        return view('cursos.index', compact('cursos'));
+        /* $userRol = auth()->user();
+        if ($userRol->rol === 'profesor') {
+            return redirect()->route('profesores.home');
+        } */
+        
+        $cursos = Curso::with('unidades')->get();
+        $userId = auth()->id();
+
+        // Iterar sobre cada curso para calcular el progreso
+        foreach ($cursos as $curso) {
+            // Obtener la última unidad leída del usuario para este curso
+            $unidadLeida = DB::table('usuarios_cursos')
+                ->where('curso_id', $curso->id)
+                ->where('user_id', $userId)
+                ->value('unidad_leida') ?? 0; // Si no hay unidad leida, establecer como 0%
+            
+            // Orden más alto
+            $ultimaUnidad = $curso->unidades->max('orden');
+
+            $progreso = $ultimaUnidad > 0 ? ($unidadLeida / $ultimaUnidad) * 100 : 0;
+//dd($curso);
+            // Porcentaje
+            $curso->progreso = $progreso;
+        }
+        return view('cursos.index', compact('cursos', 'progreso'));
     }
 
     public function create()

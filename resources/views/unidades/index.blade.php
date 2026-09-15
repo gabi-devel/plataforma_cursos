@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('estilos')
-  @vite(['resources/css/unidades.css'])
+  <link rel="stylesheet" href="../../../css/styles.css">
+  <link rel="stylesheet" href="../../../css/unidades.css">
 @endsection
 
 @section('content')
-<link href="{{ asset('css/unidades.css') }}" rel="stylesheet">
-    <div class="page row" style="margin: 0">
+<img src="../../../../HSE-Banner1.jpg" style="width: 99vw;">
+    <div class="page row" style="margin: 0;background-color: #f8f9fa;">
 
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse bg-secondary">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-secondary pt-3">
         <div class="position-sticky pt-3 sidebar-sticky">
           <ul class="nav flex-column">
             @php
@@ -34,7 +35,7 @@
           @if ($unidad->orden == $ultimaUnidadLeida)
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
-              <a class="nav-link link-examen"  href="{{ route('ver_multiple_choice', 1) }}">
+              <a class="nav-link link-examen" href="{{ route('ver_multiple_choice', ['examenId' => $curso->id, 'usuario' => $user]) }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file align-text-bottom" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                 Examen
               </a>
@@ -45,36 +46,41 @@
         </div>
       </nav>
 
-      <section class="section section-sm section-first bg-light col-md-9 col-lg-10">
+      <section class="section section-sm section-first bg-light col-md-9 col-lg-10 pt-3">
         <div class="container">
             <div class="row row-50">
                 <div class="col-12">
                     <div class="conte mt-3 me-5" id="contenido">
                         <h1 id="titulo">{{ $unidadActual['titulo'] }} </h1>
                         <h3 id="subtitulo"></h3> <br>
-                        <h5 id="texto">{{ $unidadActual['contenido'] }}</h5>
+                        <h5 id="texto">{!! $unidadActual['contenido'] !!}</h5>
                         
-                        <div class="mt-4">
+                        <div class="mt-5"><br><br>
                           <form id="form-unidad-leida" action="{{ route('marcar.unidad.leida') }}" method="POST">
                             @csrf
                             <input type="hidden" name="curso_id" value="{{ $curso->id }}">
                             <input type="hidden" name="unidad_id" value="{{ $unidadActual['orden'] }}">
-                            <label>
-                              <input type="checkbox" id="checkbox-leido" onclick="habilitarSiguiente()"> Ya he leído esta unidad
+                            <label style="font-size: larger;"><input type="checkbox" id="checkbox-leido"> 
+                               Ya he leído esta unidad
                             </label>
                           </form>
                         </div>
                         @php
                             // Buscar la siguiente unidad
                             $siguienteUnidad = $unidades->firstWhere('orden', $unidadActual['orden'] + 1);
+                            $siguienteUnidadHabilitada = $siguienteUnidad && $siguienteUnidad->orden <= ($ultimaUnidadLeida + 1);
                         @endphp
                         <h4 class="text-end">
                           @if($siguienteUnidad)
-                            <a href="{{ route('unidades.index', ['curso_id' => $curso->id, 'unidad_id' => ($unidadActual['orden']+1)]) }}" id="link-siguiente" class="link-sig disabled" style="pointer-events:none;opacity:0.5;">
+                          <a href="{{ route('unidades.index', ['curso_id' => $curso->id, 'unidad_id' => $unidadActual['orden'] + 1]) }}"
+                            id="link-siguiente"
+                            class="link-sig {{ $siguienteUnidadHabilitada ? '' : 'disabled' }}"
+                            style="{{ $siguienteUnidadHabilitada ? '' : 'pointer-events:none;opacity:0.5;' }}">
                                 Clase Siguiente
                             </a>
                           @else
-                            <a class="link-sig disabled" id="link-siguiente" style="pointer-events:none;opacity:0.5;" href="{{ route('ver_multiple_choice', 1) }}" >
+                            <a class="link-sig disabled" id="link-siguiente" style="pointer-events:none;opacity:0.5;" 
+                               href="{{ route('ver_multiple_choice', ['examenId' => $curso->id, 'usuario' => $user]) }}" >
                                 Ir al Examen
                             </a>
                           @endif
@@ -97,19 +103,23 @@
                                   },
                                   body: formData
                               })
-                              .then(response => {
-                                  if (response.ok) {
-                                      // Habilitar enlace "Clase Siguiente"
+                              .then(response => response.json())
+                              .then(data => {
+                                  if (data.success) {
+                                      // Actualizar el enlace de la siguiente unidad
                                       const linkSiguiente = document.getElementById('link-siguiente');
                                       linkSiguiente.classList.remove('disabled');
                                       linkSiguiente.style.pointerEvents = 'auto';
                                       linkSiguiente.style.opacity = '1';
+
+                                      // Actualizar la unidad actual visualmente
+                                      //location.reload(); // Para reflejar cambios en la lista de unidades
                                   } else {
                                       throw new Error('Error al marcar la unidad como leída.');
                                   }
                               })
                               .catch(error => {
-                                  console.error('Error:', error);  // Mostrar error en la consola
+                                  console.error('Error:', error);
                                   alert('Hubo un problema al enviar la solicitud.');
                               });
                           }
@@ -117,9 +127,9 @@
                     </div>
                 </div>
             </div>
-        </div> <br><br><br><br>
+        </div> <br><br>
     </section> 
 
     </div>
-
+    <img src="../../../../HSE-Banner2.jpg" style="width: 99vw;">
 @endsection

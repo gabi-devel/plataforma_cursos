@@ -1,10 +1,15 @@
 @extends('layouts.app')
 
+@section('estilos')
+  <link rel="stylesheet" href="../../../css/styles.css">
+  <link rel="stylesheet" href="../../../css/unidades.css">
+@endsection
+
 @section('content')
     <div class="container mt-5">
         <h2 class="text-center">Examen</h2><br>
         <div class="container">
-            <form action="{{ route('guardar_respuestas', 1) }}" method="POST">
+            <form action="{{ route('guardar_respuestas', ['examenId' => $examenId]) }}" method="POST">
                 @csrf
                 @foreach($preguntas as $pregunta)
                     <div class="mb-4">
@@ -21,7 +26,7 @@
                         </div>
                     </div>
                 @endforeach
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary mb-5">Enviar</button><br><br>
             </form>
         </div>
     </div>

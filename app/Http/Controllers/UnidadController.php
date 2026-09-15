@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 class UnidadController extends Controller
 {
     public function index($curso_id, $unidad_id = null) { // $unidad_id aquí representa el 'orden'
-        /* if (!$unidad_id) { $unidad_id = 1; } */
+        if (!$unidad_id) { $unidad_id = 1; }
+        $user = auth()->id();
         $curso = Curso::findOrFail($curso_id); 
         $unidades = Unidad::where('curso_id', $curso_id)->orderBy('orden')->get();
         
@@ -21,26 +22,14 @@ class UnidadController extends Controller
         ->where('user_id', auth()->id()) // Asegúrate de que el usuario está autenticado
         ->value('unidad_leida');
 
-        // Si no existe una unidad leída (el usuario nunca ha leído una unidad), asignar una por defecto
-        if (!$unidadLeida) {
-            $unidadLeida = 1; // Asignar el número de la primera unidad, o el valor que desees por defecto
-        }
-        // Obtener la unidad correspondiente a 'unidad_leida' directamente
-        $unidadMasAlta = Unidad::where('curso_id', $curso_id)
-                                ->where('orden', $unidadLeida)
-                                ->first();
+        // Determinar la unidad actual: usar la unidad clickeada o la más alta leída
+        $unidadActualOrden = $unidad_id ?? $unidadLeida; // Si no hay $unidad_id, usar $unidadLeida
 
-        // Si no se encuentra la unidad correspondiente (esto debería ser muy raro si los datos están bien)
-        if (!$unidadMasAlta) {
-            return redirect()->back()->with('error', 'No se pudo encontrar la unidad correspondiente.');
-        }
-
-        // Obtener la unidad actual si la $unidad_id está definida
         $unidadActual = Unidad::where('curso_id', $curso_id)
-                            ->where('orden', $unidadLeida ?: $unidadMasAlta->orden)
-                            ->firstOrFail();
-
-        return view('unidades.index', compact('curso', 'unidad_id', 'unidadActual', 'unidades', 'unidadLeida'));
+        ->where('orden', $unidadActualOrden)
+        ->firstOrFail(); // Buscar la unidad actual según el orden determinado                   
+        //dd($user);
+        return view('unidades.index', compact('curso', /* 'unidad_id',  */'unidadActual', 'unidades', 'unidadLeida', 'user'));
     }
 
     public function create()
@@ -141,16 +130,12 @@ class UnidadController extends Controller
                 ['unidad_leida' => $unidadId, 'updated_at' => now()]
             );
         } 
-
+        return response()->json(['success' => true]); // Devuelve una respuesta JSON clara
 
         // Redirigir de nuevo a la vista actualizada
-        return redirect()->route('unidades.index', ['curso_id' => $cursoId, 'unidad_id' => $unidadId])
-                         ->with('success', 'Unidad marcada como leída.');
+        /* return redirect()->route('unidades.index', ['curso_id' => $cursoId, 'unidad_id' => $unidadId])
+                         ->with('success', 'Unidad marcada como leída.'); */
         
-        /* // Actualiza la base de datos con la unidad leída
-        $cursos->updateExistingPivot($curso_id, ['unidad_leida' => $unidad_id]);
-
-        return response()->json(['success' => true]);  // Devuelve una respuesta JSON clara  */       
     }
 
 

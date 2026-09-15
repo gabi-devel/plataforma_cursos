@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
+@section('estilos')
+    <link rel="stylesheet" href="css/login.css">
+@endsection
+
 @section('content')
+<div class="overlay"></div>
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,7 +17,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">Usuario</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">DNI</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>

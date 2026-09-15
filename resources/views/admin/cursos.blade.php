@@ -1,0 +1,47 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">Cursos</h2>
+
+    <h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">Curso</th>
+                  <th scope="col">Cantidad de Estudiantes</th>
+                  {{-- <th scope="col">Cantidad de Completado</th>  --}}
+                  <th scope="col">Cantidad de Aprobados</th>
+                  {{-- <th scope="col">Porcentaje</th> --}}
+                </tr>
+              </thead>
+              <tbody>
+            @foreach ($cursos as $curso)
+                @php
+                  if ($curso->cantidadEstudiantes == 0) { $porcentaje = 0; }
+                  else { $porcentaje = ($curso->cantidadCompletados * 100) / $curso->cantidadEstudiantes; }
+                @endphp
+                <tr>
+                  <td>{{ $curso->titulo }}</td>
+                  <td>
+                    <a href="{{ route('cursos.usuarios', ['cursoId' => $curso->id]) }}">
+                      {{ $curso->cantidadEstudiantes }}
+                    </a>
+                  </td>
+                  {{--  <td>{{ $curso->cantidadCompletados }}de {{ $curso->cantidadEstudiantes }}   </td>--}}
+                  <td>{{ $curso->cantidadAprobados }}</td>
+                  {{-- <td>{{ $porcentaje }} % 
+                  </td> --}}
+                </tr>
+            @endforeach
+              </tbody>   
+        </table>
+    </h5>
+
+    <a href="{{ route('admin.dashboard') }}">Volver</a>
+    
+    
+</div>
+
+@endsection
